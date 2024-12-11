@@ -60,6 +60,7 @@ let yInput = "";
 let operatorInput = "";
 
 function onOperatorButton(operator) {
+    onEqualsButton();
     xInput = displayMain.textContent;
     displayMain.textContent = "";
     operatorInput = operator;
@@ -72,13 +73,32 @@ function onEqualsButton() {
         displayMain.textContent = answer;
         xInput = "";
         operatorInput = "";
+        displaySecondary.textContent = "";
     }
 }
 
 let displaySecondary = document.querySelector("#displaySecondary");
 
 function updateSecondaryDisplay() {
-    displaySecondary.textContent = xInput + operatorInput;
+    let operatorSymbol = "";
+    switch (operatorInput) {
+        case "add":
+            operatorSymbol = "+";
+            break;
+        case "subtract":
+            operatorSymbol = "−";
+            break
+        case "multiply":
+            operatorSymbol = "×";
+            break;
+        case "divide":
+            operatorSymbol = "÷"
+            break;
+        case "modulo":
+            operatorSymbol = "%";
+            break;
+    }
+    displaySecondary.textContent = xInput + " " + operatorSymbol;
 }
 
 // 3. Add event listeners to buttons
