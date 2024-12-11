@@ -47,6 +47,9 @@ function deleteLast() {
 
 function deleteAll() {
     displayMain.textContent = 0;
+    displaySecondary.textContent = "";
+    xInput = "";
+    operatorInput = "";
 }
 
 // Check if point doesn't exists in displayMain and append
@@ -60,10 +63,17 @@ let yInput = "";
 let operatorInput = "";
 
 function onOperatorButton(operator) {
-    onEqualsButton();
-    xInput = displayMain.textContent;
-    displayMain.textContent = "";
-    operatorInput = operator;
+    // Check if operator is already used but second input is empty
+    if (operatorInput !== "" && displayMain.textContent === "" && xInput !== "") {
+        operatorInput = operator;
+    } 
+    else {
+        onEqualsButton();
+        xInput = displayMain.textContent;
+        displayMain.textContent = "";
+        operatorInput = operator;
+    }
+
     updateSecondaryDisplay();
 }
 
