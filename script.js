@@ -19,40 +19,40 @@ function calculate(x, y, operator) {
 }
 
 // 2. Create functions for the buttons
-const display = document.querySelector("#display");
+const displayMain = document.querySelector("#displayMain");
 
 function getInput() {
-    return display.textContent;
+    return displayMain.textContent;
 }
 
 function getInputAndClear() {
-    let input = display.textContent;
-    display.textContent = "";
+    let input = displayMain.textContent;
+    displayMain.textContent = "";
     return input;
 }
 
 function appendInput(input) {
-    if (display.textContent === "0") display.textContent = input;
-    else display.textContent += input;
+    if (displayMain.textContent === "0") displayMain.textContent = input;
+    else displayMain.textContent += input;
 }
 
 function appendZero() {
-    if (display.textContent !== "0") display.textContent += "0";
+    if (displayMain.textContent !== "0") displayMain.textContent += "0";
 }
 
 function deleteLast() {
-    if (display.textContent.length === 1) display.textContent = 0;
-    else display.textContent = display.textContent.slice(0, -1);
+    if (displayMain.textContent.length === 1) displayMain.textContent = 0;
+    else displayMain.textContent = displayMain.textContent.slice(0, -1);
 }
 
 function deleteAll() {
-    display.textContent = 0;
+    displayMain.textContent = 0;
 }
 
-// Check if point doesn't exists in display and append
+// Check if point doesn't exists in displayMain and append
 function appendPoint() {
-    if (display.textContent === "") display.textContent += "0.";
-    else if (!display.textContent.includes(".")) display.textContent += ".";
+    if (displayMain.textContent === "") displayMain.textContent += "0.";
+    else if (!displayMain.textContent.includes(".")) displayMain.textContent += ".";
 }
 
 let xInput = "";
@@ -60,18 +60,25 @@ let yInput = "";
 let operatorInput = "";
 
 function onOperatorButton(operator) {
-    xInput = display.textContent;
-    display.textContent = "";
+    xInput = displayMain.textContent;
+    displayMain.textContent = "";
     operatorInput = operator;
+    updateSecondaryDisplay();
 }
 
 function onEqualsButton() {
-    if (xInput !== "" && operatorInput !== "" && display.textContent !== "") {
-        let answer = calculate(xInput, display.textContent, operatorInput);
-        display.textContent = answer;
+    if (xInput !== "" && operatorInput !== "" && displayMain.textContent !== "") {
+        let answer = calculate(xInput, displayMain.textContent, operatorInput);
+        displayMain.textContent = answer;
         xInput = "";
         operatorInput = "";
     }
+}
+
+let displaySecondary = document.querySelector("#displaySecondary");
+
+function updateSecondaryDisplay() {
+    displaySecondary.textContent = xInput + operatorInput;
 }
 
 // 3. Add event listeners to buttons
